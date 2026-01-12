@@ -1,4 +1,4 @@
-package com.jan;
+package com.com.leetcode.jan;
 
 import com.sun.source.tree.Tree;
 
