@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class MaximizeAreaofSquareHoleinGrid {
     public static void main(String[] args) {
-        int n = 2, m = 1;
-        int [] hBars = {2,3}, vBars = {2};
+        int n = 7, m = 6;
+        int [] hBars = {2}, vBars = {4};
         int res = maximizeSquareHoleArea(m,n,vBars,hBars);
         System.out.println(res);
     }
