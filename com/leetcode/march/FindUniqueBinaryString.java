@@ -12,12 +12,21 @@ public class FindUniqueBinaryString {
 
     private static String findDifferentBinaryString(String[] nums) {
         int n = nums.length;
-        StringBuilder sb = new StringBuilder();
-        for(int i =0;i<n;i++){
-            String s = nums[i];
-            if(s.charAt(i) == '0') sb.append('1');
-            else sb.append('0');
+        Set<String> set = new HashSet<>();
+        for(String num:nums){
+            set.add(String.valueOf(Integer.parseInt(num,2)));
         }
-        return sb.toString();
+        System.out.println(set);
+        String res = "";
+        for(int num=0;num<=n;num++){
+            if(!set.contains(String.valueOf(num))){
+                res = Integer.toBinaryString(num);
+                while(res.length()<n){
+                    res = "0"+res;
+                }
+                return res;
+            }
+        }
+        return "";
     }
 }
