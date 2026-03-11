@@ -8,15 +8,12 @@ public class ComplementofBaseTenInteger {
     }
 
     private static int bitwiseComplement(int n) {
-        String str = Integer.toBinaryString(n);
-        int len = str.length();
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<len;i++){
-            if(str.charAt(i)=='0')
-                sb.append(1);
-            else sb.append(0);
-        }
-        int res = Integer.parseInt(sb.toString(),2);
-        return res;
+        if(n==0) return 1;
+        //find the number of bits
+        int bitCount = (int)(Math.log(n)/Math.log(2))+1;
+        //create the mask of n with the bitcount
+        int mask = (1<<bitCount)-1;
+        //to flip the bit
+        return n^mask;
     }
 }
