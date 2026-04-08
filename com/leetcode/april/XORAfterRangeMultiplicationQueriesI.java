@@ -1,0 +1,39 @@
+package com.com.leetcode.april;
+
+public class XORAfterRangeMultiplicationQueriesI {
+    private static final int mod = 1000000007;
+
+    public static void main(String[] args) {
+        XORAfterRangeMultiplicationQueriesI solution = new XORAfterRangeMultiplicationQueriesI();
+        int[] nums = {1, 2, 3, 4, 5};
+        int[][] queries = {{0, 4, 1, 2}, {1, 3, 2, 3}};
+        int result = solution.xorAfterQueries(nums, queries);
+        System.out.println(result); // Output the result
+    }
+    public static int xorAfterQueries(int[] nums, int[][] queries) {
+        // Process each query
+        for (int[] t : queries) {
+            int l = t[0];
+            int r = t[1];
+            int k = t[2];
+            int v = t[3];
+
+            int idx = l;
+
+            // Apply operation at step k
+            while (idx <= r) {
+                long temp = nums[idx];
+                nums[idx] = (int)((temp * v) % mod);
+                idx += k;
+            }
+        }
+
+        // Compute XOR of final array
+        int ans = 0;
+        for (int num : nums) {
+            ans ^= num;
+        }
+
+        return ans;
+    }
+}
