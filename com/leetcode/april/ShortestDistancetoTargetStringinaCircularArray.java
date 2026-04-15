@@ -15,16 +15,15 @@ public class ShortestDistancetoTargetStringinaCircularArray {
     }
 
     private static int closetTarget(String[] words, String target, int startIndex) {
-        int n = words.length;
         int minDist = Integer.MAX_VALUE;
         Map<String, List<Integer>> indexMap = new HashMap<>();
-        for(int i=0;i<n;i++)
+        for(int i=0;i<words.length;i++)
             indexMap.computeIfAbsent(words[i], k->new ArrayList<>()).add(i);
         if(!indexMap.containsKey(target)) return -1;
         List<Integer> targetIndices = indexMap.get(target);
         for(int index : targetIndices){
             int dist = Math.abs(index - startIndex);
-            minDist = Math.min(minDist, Math.min(dist, n - dist));
+            minDist = Math.min(minDist, Math.min(dist, words.length - dist));
         }
         return minDist;
     }
