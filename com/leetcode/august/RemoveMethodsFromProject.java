@@ -12,41 +12,43 @@ public class RemoveMethodsFromProject {
 
     private static List<Integer> remainingMethods(int n, int k, int[][] invocations) {
         Map<Integer, List<Integer>> adjList = new HashMap<>();
-        List<Integer> res = new ArrayList<>();
-        for(int i=0;i<n;i++)
-            res.add(i);
-        int[] inDegree = new int[n];
+        int [] indegree = new int[n];
         for(int [] invocation:invocations){
             int u = invocation[0];
             int v = invocation[1];
-            adjList.computeIfAbsent(u,lambda->new ArrayList<>()).add(v);
-            inDegree[v]++;
+            adjList.computeIfAbsent(u, lambda->new ArrayList<>()).add(v);
+            indegree[v]++;
         }
-        //if(inDegree[k] !=0) return res;
-        res.clear();
-        //else do the dfs
+        //start the dfs from buggy node
         boolean [] visited = new boolean[n];
-        //start dfs from k
-        remainingMethodsRecursion(k,adjList,visited);
-        Set<Integer> good = new HashSet<>();
+        remainingMethodsDFS(adjList,k,indegree, visited);
+
+        //now check if any of the visited nodes which are infected have indegree > 1, set removeNode flag to true,
+        //else if zero , then no node removal is needed return
+        boolean cannotRemove = false;
         for(int i=0;i<n;i++){
-            if(!visited[i])good.add(i);
+            if(visited[i] && indegree[i]>0){
+                cannotRemove = true;
+                break;
+            }
         }
-        //now start removing
-        for(int i =0;i<n;i++){
-            if(good.contains(i))res.add(i);
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(cannotRemove || !visited[i])res.add(i);
         }
         return res;
     }
 
-    private static void remainingMethodsRecursion(int u, Map<Integer, List<Integer>> adjList, boolean[] visited) {
+    private static void remainingMethodsDFS(Map<Integer, List<Integer>> adjList, int u, int[] indegree, boolean[] visited) {
         //base case
         if(visited[u])return;
         visited[u] = true;
         for(int v:adjList.getOrDefault(u, new ArrayList<>())){
-            remainingMethodsRecursion(v, adjList,visited);
+            indegree[v]--;
+            remainingMethodsDFS(adjList,v,indegree,visited);
         }
     }
+
 
     /**
      * 1-->2
