@@ -31,31 +31,4 @@ public class SmallestMissingIntegerGreaterThanSequentialPrefixSum {
 
         return sum;
     }
-
-//    private static int missingInteger(int[] nums) {
-//        int n = nums.length;
-//        int x =0;
-//        int sum = nums[0];
-//        int prefix =0;
-//        Set<Integer> set = new HashSet<>();
-//        List<Integer> list = new ArrayList<>();
-//        set.add(nums[0]);
-//        for(int i=1;i<n;i++){
-//            if(nums[i-1]+1==nums[i]){
-//                sum +=nums[i];
-//                if(prefix !=0){
-//                    if(sum <prefix)prefix = sum;
-//                }
-//            }else{
-//                prefix = Math.max(sum, prefix);
-//                sum = nums[i];
-//            }
-//            prefix = Math.max(sum, prefix);
-//            set.add(nums[i]);
-//        }
-//        prefix = Math.max(sum, prefix);
-//        while(set.contains(prefix))prefix++;
-//
-//        return prefix;
-//    }
 }
