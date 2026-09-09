@@ -2,7 +2,7 @@ package com.com.leetcode.sept;
 
 public class CountCommasinRange {
     public static void main(String[] args) {
-        int n = 998;
+        int n = 1004590;
         int res = countCommas(n);
         System.out.println(res);
     }
