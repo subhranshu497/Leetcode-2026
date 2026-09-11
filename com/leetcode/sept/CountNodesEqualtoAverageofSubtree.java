@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountNodesEqualtoAverageofSubtree {
+    private static int res;
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(8);
@@ -17,22 +18,23 @@ public class CountNodesEqualtoAverageofSubtree {
     }
 
     private static int averageOfSubtree(TreeNode root) {
-        //lets preorder traversal Root L R
-        int [] res = new int[1];
-        int [] sum = averageOfSubtreeDFS(root,res);
-        return res[0];
+        res =0;
+        averageOfSubtreeDFS(root);
+        return res;
     }
-    private static int [] averageOfSubtreeDFS(TreeNode root, int [] res) {
-        if(root==null) return new int[]{0,0};
-        //do post order traversal
-        int [] leftSum = averageOfSubtreeDFS(root.left,res);
-        int [] rightSum = averageOfSubtreeDFS(root.right,res);
-        int currentSum = leftSum[0]+rightSum[0]+root.val;
-        int currentCount = leftSum[1]+rightSum[1]+1;
-        if(currentSum/currentCount==root.val) res[0]++;
 
-        return new int[]{currentSum, currentCount};
+    private static int [] averageOfSubtreeDFS(TreeNode root) {
+        if(root==null)return new int []{0,0};
+
+        int [] lSum = averageOfSubtreeDFS(root.left);
+        int [] rSum = averageOfSubtreeDFS(root.right);
+        int totalSum = lSum[0]+rSum[0]+root.val;
+        int totalCount= lSum[1]+rSum[1]+1;
+        if(totalSum/totalCount==root.val)res++;
+
+        return new int[]{totalSum, totalCount};
     }
+
 }
 class TreeNode{
     int val;
